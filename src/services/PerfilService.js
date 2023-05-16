@@ -1,206 +1,207 @@
 let geradorID = 8;
 
 //Estrutura de Dados
-let perfis = [
-  {
-    usuario: {
-      email: "jao@email.com",
-      senha: "12345",
-    },
-    id: 1,
-    nome: "Jão da Silva",
-    dataNascimento: "2022-02-14T00:00:00.000Z",
-    disponibilidadeMudanca: true,
-    disponibilidadeHorario: "Integral",
-    educacao: [
-      {
-        instituicao: "Escola 1",
-        ingresso: "2012-02-28T00:00:00.000Z",
-        conclusao: "2015-02-28T00:00:00.000Z",
-        nivelEscolaridade: "Ensino Superior",
-      },
-    ],
-    certificacoes: [
-      {
-        instituicao: "High Tech Cursos",
-        titulo: "Fábrica de Programador",
-        cargaHoraria: 80,
-      },
-    ],
-    conexoes: [],
-  },
-  {
-    usuario: {
-      email: "maria@email.com",
-      senha: "123456666",
-    },
-    id: 2,
-    nome: "Maria da Silva",
-    dataNascimento: "2022-02-14T00:00:00.000Z",
-    disponibilidadeMudanca: true,
-    disponibilidadeHorario: "Meio Período",
-    educacao: [
-      {
-        instituicao: "Escola 1",
-        ingresso: "2012-02-28T00:00:00.000Z",
-        conclusao: "2015-02-28T00:00:00.000Z",
-        nivelEscolaridade: "Ensino Superior",
-      },
-    ],
-    certificacoes: [
-      {
-        instituicao: "High Tech Cursos",
-        titulo: "Fábrica de Programador",
-        cargaHoraria: 80,
-      },
-    ],
-    conexoes: [],
-  },
-  {
-    usuario: {
-      email: "ze@email.com",
-      senha: "123",
-    },
-    id: 3,
-    nome: "Zé Araujo",
-    dataNascimento: "2022-02-14T00:00:00.000Z",
-    disponibilidadeMudanca: true,
-    disponibilidadeHorario: "Integral",
-    educacao: [
-      {
-        instituicao: "Escola 1",
-        ingresso: "2012-02-28T00:00:00.000Z",
-        conclusao: "2015-02-28T00:00:00.000Z",
-        nivelEscolaridade: "Ensino Superior",
-      },
-    ],
-    certificacoes: [
-      {
-        instituicao: "High Tech Cursos",
-        titulo: "Fábrica de Programador",
-        cargaHoraria: 80,
-      },
-    ],
-    conexoes: [],
-  },
-  {
-    usuario: {
-      email: "leonardo@email.com",
-      senha: "123",
-    },
-    id: 4,
-    nome: "Leonardo Fernandes",
-    dataNascimento: "2022-02-14T00:00:00.000Z",
-    disponibilidadeMudanca: true,
-    disponibilidadeHorario: "Integral",
-    educacao: [
-      {
-        instituicao: "Escola 1",
-        ingresso: "2012-02-28T00:00:00.000Z",
-        conclusao: "2015-02-28T00:00:00.000Z",
-        nivelEscolaridade: "Ensino Superior",
-      },
-    ],
-    certificacoes: [
-      {
-        instituicao: "High Tech Cursos",
-        titulo: "Fábrica de Programador",
-        cargaHoraria: 80,
-      },
-    ],
-    conexoes: [],
-  },
-  {
-    usuario: {
-      email: "gabriela@email.com",
-      senha: "12345111",
-    },
-    id: 5,
-    nome: "Gabriela Souza",
-    dataNascimento: "2022-02-14T00:00:00.000Z",
-    disponibilidadeMudanca: true,
-    disponibilidadeHorario: "Integral",
-    educacao: [
-      {
-        instituicao: "Escola 1",
-        ingresso: "2012-02-28T00:00:00.000Z",
-        conclusao: "2015-02-28T00:00:00.000Z",
-        nivelEscolaridade: "Ensino Superior",
-      },
-    ],
-    certificacoes: [
-      {
-        instituicao: "High Tech Cursos",
-        titulo: "Fábrica de Programador",
-        cargaHoraria: 80,
-      },
-    ],
-    conexoes: [],
-  },
-  {
-    usuario: {
-      email: "beatriz@email.com",
-      senha: "123",
-    },
-    id: 6,
-    nome: "Beatriz de Almeida",
-    dataNascimento: "2022-02-14T00:00:00.000Z",
-    disponibilidadeMudanca: true,
-    disponibilidadeHorario: "Integral",
-    educacao: [
-      {
-        instituicao: "Escola 1",
-        ingresso: "2012-02-28T00:00:00.000Z",
-        conclusao: "2015-02-28T00:00:00.000Z",
-        nivelEscolaridade: "Ensino Superior",
-      },
-    ],
-    certificacoes: [
-      {
-        instituicao: "High Tech Cursos",
-        titulo: "Fábrica de Programador",
-        cargaHoraria: 80,
-      },
-    ],
-    conexoes: [],
-  },
-  {
-    usuario: {
-      email: "felipe@email.com",
-      senha: "123",
-    },
-    id: 7,
-    nome: "Felipe Magalhães",
-    dataNascimento: "2022-02-14T00:00:00.000Z",
-    disponibilidadeMudanca: true,
-    disponibilidadeHorario: "Integral",
-    educacao: [
-      {
-        instituicao: "Escola 1",
-        ingresso: "2012-02-28T00:00:00.000Z",
-        conclusao: "2015-02-28T00:00:00.000Z",
-        nivelEscolaridade: "Ensino Superior",
-      },
-    ],
-    certificacoes: [
-      {
-        instituicao: "High Tech Cursos",
-        titulo: "Fábrica de Programador",
-        cargaHoraria: 80,
-      },
-    ],
-    conexoes: [],
-  },
-];
 
-module.exports = {
+let self = (module.exports = {
+  perfis: [
+    {
+      usuario: {
+        email: "jao@email.com",
+        senha: "12345",
+      },
+      id: 1,
+      nome: "Jão da Silva",
+      dataNascimento: "2022-02-14T00:00:00.000Z",
+      disponibilidadeMudanca: true,
+      disponibilidadeHorario: "Integral",
+      educacao: [
+        {
+          instituicao: "Escola 1",
+          ingresso: "2012-02-28T00:00:00.000Z",
+          conclusao: "2015-02-28T00:00:00.000Z",
+          nivelEscolaridade: "Ensino Superior",
+        },
+      ],
+      certificacoes: [
+        {
+          instituicao: "High Tech Cursos",
+          titulo: "Fábrica de Programador",
+          cargaHoraria: 80,
+        },
+      ],
+      conexoes: [],
+    },
+    {
+      usuario: {
+        email: "maria@email.com",
+        senha: "123456666",
+      },
+      id: 2,
+      nome: "Maria da Silva",
+      dataNascimento: "2022-02-14T00:00:00.000Z",
+      disponibilidadeMudanca: true,
+      disponibilidadeHorario: "Meio Período",
+      educacao: [
+        {
+          instituicao: "Escola 1",
+          ingresso: "2012-02-28T00:00:00.000Z",
+          conclusao: "2015-02-28T00:00:00.000Z",
+          nivelEscolaridade: "Ensino Superior",
+        },
+      ],
+      certificacoes: [
+        {
+          instituicao: "High Tech Cursos",
+          titulo: "Fábrica de Programador",
+          cargaHoraria: 80,
+        },
+      ],
+      conexoes: [],
+    },
+    {
+      usuario: {
+        email: "ze@email.com",
+        senha: "123",
+      },
+      id: 3,
+      nome: "Zé Araujo",
+      dataNascimento: "2022-02-14T00:00:00.000Z",
+      disponibilidadeMudanca: true,
+      disponibilidadeHorario: "Integral",
+      educacao: [
+        {
+          instituicao: "Escola 1",
+          ingresso: "2012-02-28T00:00:00.000Z",
+          conclusao: "2015-02-28T00:00:00.000Z",
+          nivelEscolaridade: "Ensino Superior",
+        },
+      ],
+      certificacoes: [
+        {
+          instituicao: "High Tech Cursos",
+          titulo: "Fábrica de Programador",
+          cargaHoraria: 80,
+        },
+      ],
+      conexoes: [],
+    },
+    {
+      usuario: {
+        email: "leonardo@email.com",
+        senha: "123",
+      },
+      id: 4,
+      nome: "Leonardo Fernandes",
+      dataNascimento: "2022-02-14T00:00:00.000Z",
+      disponibilidadeMudanca: true,
+      disponibilidadeHorario: "Integral",
+      educacao: [
+        {
+          instituicao: "Escola 1",
+          ingresso: "2012-02-28T00:00:00.000Z",
+          conclusao: "2015-02-28T00:00:00.000Z",
+          nivelEscolaridade: "Ensino Superior",
+        },
+      ],
+      certificacoes: [
+        {
+          instituicao: "High Tech Cursos",
+          titulo: "Fábrica de Programador",
+          cargaHoraria: 80,
+        },
+      ],
+      conexoes: [],
+    },
+    {
+      usuario: {
+        email: "gabriela@email.com",
+        senha: "12345111",
+      },
+      id: 5,
+      nome: "Gabriela Souza",
+      dataNascimento: "2022-02-14T00:00:00.000Z",
+      disponibilidadeMudanca: true,
+      disponibilidadeHorario: "Integral",
+      educacao: [
+        {
+          instituicao: "Escola 1",
+          ingresso: "2012-02-28T00:00:00.000Z",
+          conclusao: "2015-02-28T00:00:00.000Z",
+          nivelEscolaridade: "Ensino Superior",
+        },
+      ],
+      certificacoes: [
+        {
+          instituicao: "High Tech Cursos",
+          titulo: "Fábrica de Programador",
+          cargaHoraria: 80,
+        },
+      ],
+      conexoes: [],
+    },
+    {
+      usuario: {
+        email: "beatriz@email.com",
+        senha: "123",
+      },
+      id: 6,
+      nome: "Beatriz de Almeida",
+      dataNascimento: "2022-02-14T00:00:00.000Z",
+      disponibilidadeMudanca: true,
+      disponibilidadeHorario: "Integral",
+      educacao: [
+        {
+          instituicao: "Escola 1",
+          ingresso: "2012-02-28T00:00:00.000Z",
+          conclusao: "2015-02-28T00:00:00.000Z",
+          nivelEscolaridade: "Ensino Superior",
+        },
+      ],
+      certificacoes: [
+        {
+          instituicao: "High Tech Cursos",
+          titulo: "Fábrica de Programador",
+          cargaHoraria: 80,
+        },
+      ],
+      conexoes: [],
+    },
+    {
+      usuario: {
+        email: "felipe@email.com",
+        senha: "123",
+      },
+      id: 7,
+      nome: "Felipe Magalhães",
+      dataNascimento: "2022-02-14T00:00:00.000Z",
+      disponibilidadeMudanca: true,
+      disponibilidadeHorario: "Integral",
+      educacao: [
+        {
+          instituicao: "Escola 1",
+          ingresso: "2012-02-28T00:00:00.000Z",
+          conclusao: "2015-02-28T00:00:00.000Z",
+          nivelEscolaridade: "Ensino Superior",
+        },
+      ],
+      certificacoes: [
+        {
+          instituicao: "High Tech Cursos",
+          titulo: "Fábrica de Programador",
+          cargaHoraria: 80,
+        },
+      ],
+      conexoes: [],
+    },
+  ],
+
   buscarUltimos: (req, res) => {
-    res.json(perfis.length > 5 ? perfis.slice(perfis.length - 5) : perfis);
+    res.json(self.perfis.length > 5 ? self.perfis.slice(self.perfis.length - 5) : perfis);
   },
 
   buscarPorId: (req, res) => {
     let perfilID = req.params.id;
-    let perfilEncontrado = perfis.find((perfil) => perfil.id == perfilID);
+    let perfilEncontrado = self.perfis.find((perfil) => perfil.id == perfilID);
     if (perfilEncontrado) {
       res.json(perfilEncontrado);
     } else {
@@ -215,7 +216,7 @@ module.exports = {
 
     if (novoPerfil) {
       novoPerfil.id = geradorID;
-      perfis.push(novoPerfil);
+      self.perfis.push(novoPerfil);
       geradorID++;
       res.json(novoPerfil);
     } else {
@@ -231,11 +232,11 @@ module.exports = {
     let perfilID = req.params.id;
     let perfilEditado = req.body;
     if (perfilEditado) {
-      let perfilIndex = perfis.findIndex((perfil) => perfil.id == perfilID);
+      let perfilIndex = self.perfis.findIndex((perfil) => perfil.id == perfilID);
       if (perfilIndex !== -1) {
         let perfilRetorno = perfis[perfilIndex];
         perfilEditado.id = perfilID;
-        perfis.splice(perfilIndex, 1, perfilEditado);
+        self.perfis.splice(perfilIndex, 1, perfilEditado);
 
         res.json(perfilRetorno);
       } else {
@@ -258,8 +259,10 @@ module.exports = {
       let remetenteID = info.remetente;
       let destinatarioID = info.destinatario;
 
-      let remetente = perfis.find((perfil) => perfil.id == remetenteID);
-      let destinatario = perfis.find((perfil) => perfil.id == destinatarioID);
+      let remetente = self.perfis.find((perfil) => perfil.id == remetenteID);
+      let destinatario = self.perfis.find(
+        (perfil) => perfil.id == destinatarioID
+      );
 
       if (remetente && destinatario) {
         remetente.conexoes.push(destinatarioID);
@@ -278,7 +281,5 @@ module.exports = {
         message: "Erro ao estabelecer conexão : Dados incompletos",
       });
     }
-
-    res.json();
   },
-};
+});

@@ -1,3 +1,5 @@
+const tokenUtils = require("./../utils/TokenUtil");
+
 let geradorID = 4;
 
 //Estrutura de Dados
@@ -32,91 +34,69 @@ let notificacoes = [
 ];
 
 module.exports = {
-  buscarUltimos: (req, res) => {
-    res.json(perfis.length > 5 ? perfis.slice(perfis.length - 5) : perfis);
-  },
-
   buscarPorId: (req, res) => {
-    let perfilID = req.params.id;
-    let perfilEncontrado = perfis.find((perfil) => perfil.id == perfilID);
-    if (perfilEncontrado) {
-      res.json(perfilEncontrado);
+    const verificacaoToken = tokenUtils.verificarToken(req);
+
+    if (verificacaoToken.autorizado) {
+      let notificacaoID = req.params.id;
+      let notificacaoEncontrada = notificacoes.find(
+        (notificacao) => notificacao.id == notificacaoID
+      );
+      if (notificacaoEncontrada) {
+        res.json(notificacaoEncontrada);
+      } else {
+        res.status(400).json({
+          message: "Erro ao buscar notificacao : Objeto não encontrado",
+        });
+      }
     } else {
-      res.status(400).json({
-        message: "Erro ao buscar perfil : Objeto não encontrado",
+      res.status(401).json({
+        message: verificacaoToken.message,
       });
     }
   },
 
   cadastrar: (req, res) => {
-    let novoPerfil = req.body;
+    let novaNotificacao = req.body;
 
-    if (novoPerfil) {
-      novoPerfil.id = geradorID;
-      perfis.push(novoPerfil);
+    if (novaNotificacao) {
+      novaNotificacao.id = geradorID;
+      notificacoes.push(novaNotificacao);
       geradorID++;
-      res.json(novoPerfil);
+      res.json(novaNotificacao);
     } else {
       res.status(400).json({
-        message: "Erro ao cadastrar perfil : Dados incompletos",
+        message: "Erro ao cadastrar notificação : Dados incompletos",
       });
     }
-
-    res.json();
   },
 
-  editar: (req, res) => {
+  buscarPorPerfilId: (req, res) => {
     let perfilID = req.params.id;
-    let perfilEditado = req.body;
-    if (perfilEditado) {
-      let perfilIndex = perfis.findIndex((perfil) => perfil.id == perfilID);
-      if (perfilIndex !== -1) {
-        let perfilRetorno = perfis[perfilIndex];
-        perfilEditado.id = perfilID;
-        perfis.splice(perfilIndex, 1, perfilEditado);
-
-        res.json(perfilRetorno);
-      } else {
-        res.status(200).json({
-          message: "Erro ao editar perfil : Perfil não encontrado",
-        });
-      }
-    } else {
-      res.status(400).json({
-        message: "Erro ao editar perfil : Dados incompletos",
-      });
-    }
-    res.json();
+    let resposta = notificacoes.filter(
+      (notificacao) =>
+        notificacao.destinatario == perfilID ||
+        notificacao.remetente == perfilID
+    );
+    res.json(resposta);
   },
 
-  conectar: (req, res) => {
-    let info = req.body;
+  marcarLida: (req, res) => {
+    let notificacaoID = req.params.id;
+    let notificacaoEncontrada = notificacoes.find(
+      (notificacao) => notificacao.id == notificacaoID
+    );
 
-    if (info.remetente && info.destinatario) {
-      let remetenteID = info.remetente;
-      let destinatarioID = info.destinatario;
-
-      let remetente = perfis.find((perfil) => perfil.id == remetenteID);
-      let destinatario = perfis.find((perfil) => perfil.id == destinatarioID);
-
-      if (remetente && destinatario) {
-        remetente.conexoes.push(destinatarioID);
-        destinatario.conexoes.push(remetenteID);
-
-        res.json({
-          message: "Conexão estabelecida com sucesso",
-        });
-      } else {
-        res.json({
-          message: "Erro ao estabelecer conexão : Perfil não encontrado",
-        });
-      }
+    if (notificacaoEncontrada) {
+      notificacaoEncontrada.lida = true;
+      res.json({
+        message: "Mensagem marcada como lida",
+      });
     } else {
-      res.status(400).json({
-        message: "Erro ao estabelecer conexão : Dados incompletos",
+      res.json({
+        message:
+          "Erro ao marcar notificação como lida : Notificação não encontrada",
       });
     }
-
-    res.json();
   },
 };
