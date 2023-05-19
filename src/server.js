@@ -4,8 +4,9 @@ const loginRoute = require("./routes/LoginRoute");
 const notificacaoRoute = require("./routes/NotificacaoRoute");
 
 const app = express();
-const db = require("mongoose");
+const db = require("./database");
 
+db.connect();
 
 app.use(express.json());
 app.use("/perfil", perfilRoute);
