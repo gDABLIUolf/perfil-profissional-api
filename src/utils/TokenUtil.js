@@ -1,24 +1,25 @@
-module.exports = {
-  verificarToken: (request) => {
-    let token = request.headers["token"];
+require("dotenv").config;
+const jwt = require("jsonwebtoken");
 
-    if (!token) {
-      return {
-        autorizado: false,
-        message: "Erro ao acessar recurso : Token não informado",
+module.exports = {
+  gerarToken: (usuario) => {
+    try {
+      return jwt.sign(usuario, process.env.SECRET);
+    } catch (error) {
+      console.log("ERRO: " + error.message);
+      throw { status: 500, message: "Erro na geração do token" };
+    }
+  },
+
+  verificarToken: (token) => {
+    try {
+      return jwt.verify(token, process.env.SECRET);
+    } catch (error) {
+      console.log("ERRO: " + error.message);
+      throw {
+        status: 500,
+        message: "Erro ao autenticar token : token invalido",
       };
-    } else {
-      if (token == "Fabricadeprogramador") {
-        return {
-          autorizado: true,
-          message: "",
-        };
-      } else {
-        return {
-          autorizado: false,
-          message: "Erro ao acessar recurso : Token inválido",
-        };
-      }
     }
   },
 };

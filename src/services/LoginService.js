@@ -1,32 +1,53 @@
-const perfilService = require("./../services/PerfilService");
+const perfilModel = require("./../models/Perfil");
+const bcrypt = require("bcrypt");
+const tokenUtil = require("./../utils/TokenUtil");
 
 module.exports = {
-  autenticar: (req, res) => {
+  autenticar: async (usuario) => {
+    try {
+      if (usuario.email && usuario.senha) {
+        let perfilEncontrado = await perfilModel
+          .findOne({
+            "usuario.email": usuario.email,
+          })
+          .select("+usuario.senha")
+          .exec();
 
-
-    let usuario = req.body;
-    if (usuario.email && usuario.senha) {
-      let usuarioEncontrado = perfilService.perfis.find(
-        (perfil) =>
-          perfil.usuario.email == usuario.email &&
-          perfil.usuario.senha == usuario.senha
-      );
-
-      if (usuarioEncontrado) {
-        let resposta = {};
-        resposta.perfil = usuarioEncontrado.id;
-        resposta.token = "Fabricadeprogramador";
-
-        res.json(resposta);
+        if (perfilEncontrado) {
+          const match = await bcrypt.compare(
+            usuario.senha,
+            perfilEncontrado.usuario.senha
+          );
+          if (match) {
+            const token = tokenUtil.gerarToken(
+              JSON.stringify(perfilEncontrado.usuario)
+            );
+            return {
+              token: token,
+              email: perfilEncontrado.usuario.email,
+              perfil: perfilEncontrado._id,
+            };
+          } else {
+            throw {
+              status: 200,
+              message: "Erro ao efetuar login : Credenciais inválidas",
+            };
+          }
+        } else {
+          throw {
+            status: 200,
+            message: "Erro ao efetuar login : Credenciais inválidas",
+          };
+        }
       } else {
-        res.json({
-          message: "Erro ao efetuar login : Credenciais inválidas",
-        });
+        throw {
+          status: 400,
+          message: "Erro ao efetuar login : Faltando credenciais",
+        };
       }
-    } else {
-      res.status(400).json({
-        message: "Erro ao efetuar login : Faltando credenciais",
-      });
+    } catch (error) {
+      console.log(`ERRO: ${error.message}`);
+      throw error;
     }
   },
 };
